@@ -1,3 +1,4 @@
+-- they see me gooning to the lime memory leaks!
 repeat task.wait() until game:IsLoaded()
 local UserInputService = cloneref(game:GetService("UserInputService"))
 local TweenService = cloneref(game:GetService("TweenService"))
@@ -35,7 +36,7 @@ local Manager, ManagerMenu, ManagerBox, ManagerDelete, ManagerCreate, ManagerLoa
 if not isfolder(LimeFolder) then makefolder(LimeFolder) end
 if not isfolder(ConfigsFolder) then makefolder(ConfigsFolder) end
 if not isfolder(CurrentGameFolder) then makefolder(CurrentGameFolder) end
-if not isfile(KillsultsTable) then writefile(KillsultsTable, game:HttpGet("https://raw.githubusercontent.com/AfgMS/LimeForRoblox/main/killsults.lua")) end
+if not isfile(KillsultsTable) then writefile(KillsultsTable, game:HttpGet("https://raw.githubusercontent.com/not-hm/LimeForRoblox/main/killsults.lua")) end
 loadstring(game:HttpGet("https://raw.githubusercontent.com/not-hm/LimeForRoblox/refs/heads/main/data.lua"))()
 if isfile(CurrentGameConfig) then
 	local GetMain = readfile(CurrentGameConfig)
@@ -71,6 +72,18 @@ if UserInputService.TouchEnabled and not UserInputService.KeyboardEnabled and no
 		end)
 	end
 elseif not UserInputService.TouchEnabled and UserInputService.KeyboardEnabled and UserInputService.MouseEnabled then
+	if not Library.DeviceType then
+		Library.DeviceType = "Mouse"
+		task.spawn(function()
+			StarterGui:SetCore("SendNotification", { 
+				Title = "Lime",
+				Text = "Loaded. Press RightShift",
+				Icon = "rbxassetid://12435962893",
+				Duration = 3,
+			})
+		end)
+	end
+elseif UserInputService.TouchEnabled and UserInputService.KeyboardEnabled and UserInputService.MouseEnabled then
 	if not Library.DeviceType then
 		Library.DeviceType = "Mouse"
 		task.spawn(function()
@@ -552,7 +565,7 @@ function Library:CreateMain()
 					Library.Stopped = true
 					task.wait(2)
 					writefile(CurrentGameConfig, readfile(GetConfig))
-					loadstring(game:HttpGet("https://raw.githubusercontent.com/AfgMS/LimeForRoblox/refs/heads/main/Loader.lua"))()
+					loadstring(game:HttpGet("https://raw.githubusercontent.com/not-hm/LimeForRoblox/refs/heads/main/Loader.lua"))()
 				end
 			end
 		end)
@@ -1189,6 +1202,38 @@ function Library:CreateMain()
 						end
 					end
 				end)
+			end
+			
+			function ToggleButton:CreateTextBox(TextBox)
+				TextBox = {
+					Name = TextBox.Name or "-",
+					Text = TextBox.Text or "",
+					Callback = TextBox.Callback or function() end
+				}
+
+				local TextBoxHolder = Instance.new("TextBox")
+				TextBoxHolder.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+				TextBoxHolder.BackgroundTransparency = 1
+				TextBoxHolder.BorderSizePixel = 0
+				TextBoxHolder.Size = UDim2.new(1, 0, 0, 28)
+				TextBoxHolder.Font = Enum.Font.SourceSans
+				TextBoxHolder.PlaceholderColor3 = Color3.fromRGB(220, 220, 220)
+				TextBoxHolder.PlaceholderText = TextBox.Name
+				TextBoxHolder.Text = TextBox.Text
+				TextBoxHolder.TextColor3 = Color3.fromRGB(255, 255, 255)
+				TextBoxHolder.TextSize = 16
+				if Library.DeviceType == "Touch" then
+					TextBoxHolder.Parent = ScrollingMenu
+				else
+					TextBoxHolder.Parent = ToggleMenu
+				end
+
+				TextBoxHolder.FocusLost:Connect(function(enterPressed)
+					TextBox.Text = TextBoxHolder.Text
+					TextBox.Callback(TextBox.Text)
+				end)
+
+				return TextBox
 			end
 
 			function ToggleButton:CreateDropdown(Dropdown)
