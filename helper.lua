@@ -35,7 +35,7 @@ return {
         REACH_IN_STUDS = replicatedStorage.Constants.Melee.Reach
     },
     EffectsController = {
-        PlaySound = function(pos)
+        PlaySound = function(self, pos)
             local Part = Instance.new('Part')
             Part.Size = Vector3.new(0.5, 0.5, 0.5)
             Part.CanCollide = false
@@ -81,9 +81,8 @@ return {
         PlayAnimation = function(self, tool)
             local toolnme
             if not self:GetContainer():FindFirstChild('Viewmodel') then return end
-            if not self:GetContainer().Viewmodel:FindFirstChild(tool) then return end
 
-            local animObj = self:GetContainer():WaitForChild(tool, 10):WaitForChild(tool, 10)
+            local animObj = self:GetContainer().Viewmodel:WaitForChild(tool, 10)
             if not animObj then return end
 
             local anim = animObj.Animation
