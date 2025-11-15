@@ -996,42 +996,6 @@ task.defer(function()
 	})
 end)
 
-local Disguise
-task.defer(function()
-	Disguise = TabSections.Visual:CreateToggle({
-		Name = "Disguise",
-		AutoDisable = true,
-		Callback = function(callback)
-			if callback then
-				for _, a in pairs(LocalPlayer.Character:GetChildren()) do
-					if a:IsA("Accessory") then
-						a:Destroy()
-					end
-				end
-				for _, p in pairs(LocalPlayer.Character:GetChildren()) do
-					if p:IsA("MeshPart") then
-						p.Color = Color3.new(1, 1, 1)
-					end
-				end
-				for _, s in pairs(LocalPlayer.Character:GetChildren()) do
-					if s:IsA("Shirt") or s:IsA("ShirtGraphic") then
-						s:Destroy()
-					end
-				end
-				for _, pa in pairs(LocalPlayer.Character:GetChildren()) do
-					if pa:IsA("Pants") then
-						pa:Destroy()
-					end
-				end
-				local Head = LocalPlayer.Character:WaitForChild("Head")
-				if Head:FindFirstChildWhichIsA("Decal") then
-					Head:FindFirstChildWhichIsA("Decal").Texture = "rbxassetid://12734532885"
-				end
-			end
-		end
-	})
-end)
-
 local ESP
 task.defer(function()
 	local function AddBoxes(v)
