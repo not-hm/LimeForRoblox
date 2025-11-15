@@ -11,10 +11,28 @@ end
 local replicatedStorage = cloneref(game:GetService('ReplicatedStorage'))
 local httpService = cloneref(game:GetService('HttpService'))
 local sounds = {'rbxassetid://111007032707310', 'rbxassetid://81851569676153', 'rbxassetid://108304966836429'}
+local animations = {
+	Sword = 'rbxassetid://81023102192808',
+	Hammer = 'rbxassetid://113992130601874',
+	Blocks = 'rbxassetid://76360831574790',
+	Pickaxe = 'rbxassetid://81023102192808',
+	GoldApple = 'rbxassetid://80789347313662',
+	Potion = 'rbxassetid://80789347313662'
+}
+local DAMAGE = {
+    WoodenSword = 15,
+    Sword = 15,
+    GoldSword = 35,
+    DiamondSword = 45,
+    Hammer = 25
+}
 
 return {
     CombatService = {
         KnockBackApplied = replicatedStorage.Modules.Knit.Services.CombatService.RE:FindFirstChild('KnockBackApplied')
+    },
+    CombatConstants = {
+        REACH_IN_STUDS = replicatedStorage.Constants.Melee.Reach
     },
     EffectsController = {
         PlaySound = function(pos)
@@ -39,18 +57,93 @@ return {
     },
     MatchController = {
         EnterQueue = function(mode)
-            return replicatedStorage.Modules.Knit.Services.MatchService.RF.EnterQueue:FireServer(mode)
+            return replicatedStorage.Modules.Knit.Services.MatchService.RF.EnterQueue:InvokeServer(mode)
         end
     },
     ServerData = {
         Submode = httpService:JSONDecode(replicatedStorage.Modules.ServerData.Cache.Value)
     },
     ToolService = {
-        ToggleBlockSword = function(tog, tool)
-            return replicatedStorage.Modules.Knit.Services.ToolService.RF.ToggleBlockSword:FireServer(tog, tool)
+        ToggleBlockSword = function(self, tog, tool)
+            return replicatedStorage.Modules.Knit.Services.ToolService.RF.ToggleBlockSword:InvokeServer(tog, tool)
         end,
-        AttackPlayerWithSword = function(character, crit, tool)
-            return replicatedStorage.Modules.Knit.Services.ToolService.RF.AttackPlayerWithSword:FireServer(character, crit, tool, "'")
+        AttackPlayerWithSword = function(self, character, crit, tool)
+            return replicatedStorage.Modules.Knit.Services.ToolService.RF.AttackPlayerWithSword:InvokeServer(character, crit, tool, "'")
+        end,
+        PlaceBlock = function(self, blockpos)
+            return replicatedStorage.Modules.Knit.Services.ToolService.RF.PlaceBlock:InvokeServer(blockpos)
+        end
+    },
+    ViewmodelController = {
+        GetContainer = function(self)
+            return workspace.CurrentCamera
+        end,
+        PlayAnimation = function(self, tool)
+            local toolnme
+            if not self:GetContainer():FindFirstChild('Viewmodel') then return end
+            if not self:GetContainer().Viewmodel:FindFirstChild(tool) then return end
+
+            local animObj = self:GetContainer():WaitForChild(tool, 10):WaitForChild(tool, 10)
+            if not animObj then return end
+
+            local anim = animObj.Animation
+
+            if tool:find('Sword') then
+                toolnme = 'Sword'
+            elseif tool:find('Pickaxe') then
+                toolnme = 'Pickaxe'
+            elseif tool:find('Potion') then
+                toolnme = 'Potion'
+            else
+                toolnme = tool
+            end
+            anim.AnimationId = animations[toolnme]
+
+            local track = animObj.AnimationController.Animator:LoadAnimation(anim)
+            track.Name = 'ToolAnimation'
+
+            for _, v in animObj.AnimationController.Animator:GetPlayingAnimationTracks() do
+                if v.Name == 'ToolAnimation' and (tool:find('Sword') or tool:find('Pickaxe')) then
+                    v.TimePosition = 0
+                    v:Stop()
+                    v:Destroy()
+                end
+            end
+
+            track:Play()
+
+            return track
+        end,
+        ToggleLoopedAnimation = function(self, tool, tog)
+            if self:GetContainer():FindFirstChild('Viewmodel') then
+                if self:GetContainer().Viewmodel:FindFirstChild(tool) then
+                    local mainpart = self:GetContainer().Viewmodel[tool].Handle.MainPart
+                    local motor6D = self:GetContainer().Viewmodel[tool].Handle.Motor6D
+
+                    if DAMAGE[tool] then
+                        self.SwordBlocked = tog
+                        if tog then
+                            mainpart.C1 = CFrame.new(-1.2, -0.5, 0) * CFrame.fromOrientation(-0.7853981633974483, 2.2689280275926285, -1.0471975511965976)
+                            if tool ~= 'Hammer' then
+                                self:GetContainer().Viewmodel[tool].MainPart.Mesh.Scale = Vector3.new(2.8, 5, 0.3)
+                            end
+                        else
+                            mainpart.C1 = CFrame.new(0, 0.5, 0) * CFrame.fromOrientation(0, -3.141592653589793, 0)
+                            if tool ~= 'Hammer' then
+                                self:GetContainer().Viewmodel[tool].MainPart.Mesh.Scale = Vector3.new(2, 5, 0.3)
+                            end
+                        end
+                    elseif tool == 'DefaultBow' then
+                        if tog then
+                            motor6D.C0 = CFrame.new(2.7, -1.6, -4) * CFrame.fromOrientation(0.20943951023931956, -0.08726646259971647, -0.03490658503988659)
+                        else
+                            motor6D.C0 = CFrame.new(3.5, -2.9, -3.8) * CFrame.fromOrientation(0.29670597283903605, 0, 0)
+                        end
+                    end
+                end
+            else
+                return
+            end
         end
     }
 }
