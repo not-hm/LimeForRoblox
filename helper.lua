@@ -56,7 +56,7 @@ return {
         end
     },
     MatchController = {
-        EnterQueue = function(mode)
+        EnterQueue = function(self, mode)
             return replicatedStorage.Modules.Knit.Services.MatchService.RF.EnterQueue:InvokeServer(mode)
         end
     },
