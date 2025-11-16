@@ -29,7 +29,7 @@ local DAMAGE = {
 
 return {
     CombatService = {
-        KnockBackApplied = replicatedStorage.Modules.Knit.Services.CombatService.RE:FindFirstChild('KnockBackApplied')
+        KnockBackApplied = replicatedStorage.Modules.Knit.Services.CombatService.RE:WaitForChild('KnockBackApplied', 2)
     },
     CombatConstants = {
         REACH_IN_STUDS = replicatedStorage.Constants.Melee.Reach
