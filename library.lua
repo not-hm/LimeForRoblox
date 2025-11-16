@@ -98,6 +98,7 @@ elseif UserInputService.TouchEnabled and UserInputService.KeyboardEnabled and Us
 end
 
 local function MakeDraggable(v)
+	--[[
 	local Dragging, Input2, StartDragging, StartPos = nil, nil, nil, nil
 	local function Update(Input)
 		local Delta = Input.Position - StartDragging
@@ -139,6 +140,7 @@ local function GetChildrenY(obj)
 		end
 	end
 	return UDim2.new(obj.Size.X.Scale, obj.Size.X.Offset, 0, OldY)
+	--]]
 end
 
 local function PlaySound(id)
