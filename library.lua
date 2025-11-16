@@ -131,7 +131,7 @@ local function MakeDraggable(v)
 		end
 	end)
 end
-
+--]]
 local function GetChildrenY(obj)
 	local OldY = 0
 	for _, v in ipairs(obj:GetChildren()) do
@@ -140,7 +140,6 @@ local function GetChildrenY(obj)
 		end
 	end
 	return UDim2.new(obj.Size.X.Scale, obj.Size.X.Offset, 0, OldY)
-	--]]
 end
 
 local function PlaySound(id)
