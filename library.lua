@@ -50,7 +50,7 @@ end
 
 task.spawn(function()
 	while AutoSave do
-		task.wait(5)
+		task.wait(0.5)
 		if not Library.Uninject then
 			writefile(CurrentGameConfig, HttpService:JSONEncode(ConfigTable))
 		else
