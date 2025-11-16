@@ -98,6 +98,7 @@ elseif UserInputService.TouchEnabled and UserInputService.KeyboardEnabled and Us
 end
 
 local function MakeDraggable(v)
+	--[[
 	local Dragging, Input2, StartDragging, StartPos = nil, nil, nil, nil
 	local function Update(Input)
 		local Delta = Input.Position - StartDragging
@@ -129,8 +130,8 @@ local function MakeDraggable(v)
 			Update(Input)
 		end
 	end)
+	--]]
 end
-
 local function GetChildrenY(obj)
 	local OldY = 0
 	for _, v in ipairs(obj:GetChildren()) do
