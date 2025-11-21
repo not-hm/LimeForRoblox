@@ -1,5 +1,5 @@
-## Lime
-Lime is an old Minecraft hacked client that was later discontinued and rebranded as Exire, this script is inspired by "VapeV4ForRoblox" created by 7GrandDadPGN
+## Monsoon
+Monsoon is a minecraft hacked client, script inspired by Vape (by 7GrandDadPGN)
 
 ## Interface
 Normal:
