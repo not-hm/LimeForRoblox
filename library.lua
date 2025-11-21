@@ -344,7 +344,7 @@ lib.API.ChangeColor = function()
 
 		for x, d in v.Toggles do
 			if d.Inst then
-				d.Inst.BackgroundColor3 = d.Enabled and lib.API.themes.MiniToggle[thelib.API.themesmes.theme] or lib.API.themes.Third[lib.API.themes.theme]
+				d.Inst.BackgroundColor3 = d.Enabled and lib.API.themes.MiniToggle[lib.API.themes.theme] or lib.API.themes.Third[lib.API.themes.theme]
 			end
 		end
 
