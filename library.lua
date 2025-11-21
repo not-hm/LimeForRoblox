@@ -274,6 +274,10 @@ function lib.API:CreateTargetHUD(name, thumbnail, humanoid, ishere)
 	return TargetHUD
 end
 
+function lib.API.EnableArray(tog)
+	ArrayFrame.Visible = tog
+end
+
 if inputService.TouchEnabled then
 	lplr:Kick('Not mobile supported for the time being :)')
 end
