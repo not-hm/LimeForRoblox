@@ -56,7 +56,7 @@ table.insert(lib.connections, gameCamera:GetPropertyChangedSignal('ViewportSize'
 	ArrayScale.Scale = math.min(gameCamera.ViewportSize.X / 1920, gameCamera.ViewportSize.Y / 1080)
 end))
 
-local themes = {
+lib.API.themes = {
 	theme = 'Monsoon',
 	Main = {
 		Astolfo = Color3.fromRGB(81, 56, 95),
@@ -131,7 +131,7 @@ local function AddArray(name)
 	Text.TextTransparency = 1
 	Text.BorderSizePixel = 0
 	Text.Text = name
-	Text.TextColor3 = themes.Secondary[themes.theme]
+	Text.TextColor3 = lib.API.themes.Secondary[lib.API.themes.theme]
 	Text.TextSize = 12
 	Text.ZIndex = -1
 	Text.Name = name
@@ -235,7 +235,7 @@ HealthBack.BorderSizePixel = 0
 local HealthFront = Instance.new("Frame")
 HealthFront.Parent = HealthBack
 HealthFront.AnchorPoint = Vector2.new(0, 0.5)
-HealthFront.BackgroundColor3 = themes.Secondary[themes.theme]
+HealthFront.BackgroundColor3 = lib.API.themes.Secondary[lib.API.themes.theme]
 HealthFront.Position = UDim2.new(0, 0, 0.5, 0)
 HealthFront.Size = UDim2.new(0, 50, 0, 8)
 HealthFront.BorderSizePixel = 0
@@ -325,48 +325,48 @@ end
 lib.API.ChangeColor = function()
 	for i,v in Windows do
 		if v.Inst then
-			v.Inst.BackgroundColor3 = themes.Third[themes.theme]
+			v.Inst.BackgroundColor3 = lib.API.themes.Third[lib.API.themes.theme]
 		end
 
 		if v.BarInst then
-			v.BarInst.BackgroundColor3 = themes.Secondary[themes.theme]
+			v.BarInst.BackgroundColor3 = lib.API.themes.Secondary[lib.API.themes.theme]
 		end
 	end
 
 	for i,v in cfg do
 		if v.Inst then
-			v.Inst.BackgroundColor3 = v.Enabled and themes.Secondary[themes.theme] or themes.Main[themes.theme]
+			v.Inst.BackgroundColor3 = v.Enabled and lib.API.themes.Secondary[lib.API.themes.theme] or lib.API.themes.Main[lib.API.themes.theme]
 		end
 
 		if v.KeybindInst then
-			v.KeybindInst.BackgroundColor3 = themes.Third[themes.theme]
+			v.KeybindInst.BackgroundColor3 = lib.API.themes.Third[lib.API.themes.theme]
 		end
 
 		for x, d in v.Toggles do
 			if d.Inst then
-				d.Inst.BackgroundColor3 = d.Enabled and themes.MiniToggle[themes.theme] or themes.Third[themes.theme]
+				d.Inst.BackgroundColor3 = d.Enabled and lib.API.themes.MiniToggle[thelib.API.themesmes.theme] or lib.API.themes.Third[lib.API.themes.theme]
 			end
 		end
 
 		for x,d in v.Sliders do
 			if d.Inst then
-				d.Inst.BackgroundColor3 = themes.Third[themes.theme]
+				d.Inst.BackgroundColor3 = lib.API.themes.Third[lib.API.themes.theme]
 			end
 
 			if d.FillInst then
-				d.FillInst.BackgroundColor3 = themes.Sliders[themes.theme]
+				d.FillInst.BackgroundColor3 = lib.API.themes.Sliders[lib.API.themes.theme]
 			end
 		end
 
 		for x, d in v.Dropdowns do
 			if d.Inst then
-				d.Inst.BackgroundColor3 = themes.Third[themes.theme]
+				d.Inst.BackgroundColor3 = lib.API.themes.Third[lib.API.themes.theme]
 			end
 		end
 	end
 
 	for i,v in Array do
-		v.TextColor3 = themes.Secondary[themes.theme]
+		v.TextColor3 = lib.API.themes.Secondary[lib.API.themes.theme]
 	end
 end
 
@@ -374,12 +374,12 @@ lib.API.CreateWindow = function(txt)
 	local WindowFrame = Instance.new('Frame')
 	WindowFrame.Position = UDim2.fromScale(0.01 + (index / 8.2), 0.01)
 	WindowFrame.Size = UDim2.new(0.12, 0, 0, 32)
-	WindowFrame.BackgroundColor3 = themes.Third[themes.theme]
+	WindowFrame.BackgroundColor3 = lib.API.themes.Third[lib.API.themes.theme]
 	WindowFrame.BorderSizePixel = 0
 	WindowFrame.Parent = ScreenGUI
 
 	local Bar = Instance.new('Frame')
-	Bar.BackgroundColor3 = themes.Secondary[themes.theme]
+	Bar.BackgroundColor3 = lib.API.themes.Secondary[lib.API.themes.theme]
 	Bar.Size = UDim2.new(1, 0, 0, -3)
 	Bar.AutomaticSize = Enum.AutomaticSize.X
 	Bar.BorderSizePixel = 0
@@ -442,7 +442,7 @@ lib.API.CreateWindow = function(txt)
 			local ModuleButton = Instance.new('Frame')
 			ModuleButton.Size = UDim2.new(1, 0, 0, 32)
 			ModuleButton.BorderSizePixel = 0
-			ModuleButton.BackgroundColor3 = cfg[Table.Name].Enabled and themes.Secondary[themes.theme] or themes.Main[themes.theme]
+			ModuleButton.BackgroundColor3 = cfg[Table.Name].Enabled and lib.API.themes.Secondary[lib.API.themes.theme] or lib.API.themes.Main[lib.API.themes.theme]
 			ModuleButton.Parent = ModuleFrame
 
 			cfg[Table.Name].Inst = ModuleButton
@@ -476,7 +476,7 @@ lib.API.CreateWindow = function(txt)
 					self.Enabled = not self.Enabled
 					cfg[Table.Name].Enabled = not cfg[Table.Name].Enabled
 
-					tweenService:Create(ModuleButton, TweenInfo.new(0.1), {BackgroundColor3 = self.Enabled and themes.Secondary[themes.theme] or themes.Main[themes.theme]}):Play()
+					tweenService:Create(ModuleButton, TweenInfo.new(0.1), {BackgroundColor3 = self.Enabled and lib.API.themes.Secondary[lib.API.themes.theme] or lib.API.themes.Main[lib.API.themes.theme]}):Play()
 					if Table.Function then
 						task.spawn(Table.Function, self.Enabled)
 					end
@@ -498,7 +498,7 @@ lib.API.CreateWindow = function(txt)
 
 				local ModuleFrame = Instance.new('Frame')
 				ModuleFrame.Size = UDim2.new(1, 0, 0, 32)
-				ModuleFrame.BackgroundColor3 = cfg[Table.Name].Toggles[tab.Name].Enabled and themes.MiniToggle[themes.theme] or themes.Third[themes.theme]
+				ModuleFrame.BackgroundColor3 = cfg[Table.Name].Toggles[tab.Name].Enabled and lib.API.themes.MiniToggle[lib.API.themes.theme] or lib.API.themes.Third[lib.API.themes.theme]
 				ModuleFrame.BorderSizePixel = 0
 				ModuleFrame.Parent = DropdownFrame
 
@@ -520,7 +520,7 @@ lib.API.CreateWindow = function(txt)
 						self.Enabled = not self.Enabled
 						cfg[Table.Name].Toggles[tab.Name].Enabled = not cfg[Table.Name].Toggles[tab.Name].Enabled
 
-						tweenService:Create(ModuleFrame, TweenInfo.new(0.1), {BackgroundColor3 = self.Enabled and themes.MiniToggle[themes.theme] or themes.Third[themes.theme]}):Play()
+						tweenService:Create(ModuleFrame, TweenInfo.new(0.1), {BackgroundColor3 = self.Enabled and lib.API.themes.MiniToggle[lib.API.themes.theme] or lib.API.themes.Third[lib.API.themes.theme]}):Play()
 						if tab.Function then
 							task.spawn(tab.Function, self.Enabled)
 						end
@@ -548,7 +548,7 @@ lib.API.CreateWindow = function(txt)
 
 				local PickerFrame = Instance.new('Frame')
 				PickerFrame.Size = UDim2.new(1, 0, 0, 32)
-				PickerFrame.BackgroundColor3 = themes.Third[themes.theme]
+				PickerFrame.BackgroundColor3 = lib.API.themes.Third[lib.API.themes.theme]
 				PickerFrame.BorderSizePixel = 0
 				PickerFrame.Parent = DropdownFrame
 
@@ -625,7 +625,7 @@ lib.API.CreateWindow = function(txt)
 
 				local SliderFrame = Instance.new('Frame')
 				SliderFrame.Size = UDim2.new(1, 0, 0, 32)
-				SliderFrame.BackgroundColor3 = themes.Third[themes.theme]
+				SliderFrame.BackgroundColor3 = lib.API.themes.Third[lib.API.themes.theme]
 				SliderFrame.BorderSizePixel = 0
 				SliderFrame.Parent = DropdownFrame
 
@@ -666,7 +666,7 @@ lib.API.CreateWindow = function(txt)
 
 				local SliderFill = Instance.new('Frame')
 				SliderFill.Size = UDim2.new(0, 0, 1, 0)
-				SliderFill.BackgroundColor3 = themes.Sliders[themes.theme]
+				SliderFill.BackgroundColor3 = lib.API.themes.Sliders[lib.API.themes.theme]
 				SliderFill.BorderSizePixel = 0
 				SliderFill.Parent = SliderBackground
 
@@ -771,7 +771,7 @@ lib.API.CreateWindow = function(txt)
 			local KeybindButton = Instance.new('Frame')
 			KeybindButton.Size = UDim2.new(1, 0, 0, 32)
 			KeybindButton.BorderSizePixel = 0
-			KeybindButton.BackgroundColor3 = themes.Third[themes.theme]
+			KeybindButton.BackgroundColor3 = lib.API.themes.Third[lib.API.themes.theme]
 			KeybindButton.Parent = DropdownFrame
 
 			cfg[Table.Name].KeybindInst = KeybindButton
