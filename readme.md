@@ -5,8 +5,6 @@ Monsoon was a Minecraft hacked client available on intent.store and monsoon.wtf 
 - Bridge Duel
 - Bed Fight
 - Skywars
-- Bedwarz
-- BedWars
  
 ## Interface
 ![image](image.png)
