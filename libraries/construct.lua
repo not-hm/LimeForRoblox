@@ -42,6 +42,10 @@ local bd = {
 		Diamond = 25,
 		TNT = 999,
 	},
+	BlockPlacementController = {
+		PlaceBlock = function(self, blockPos, blockType)
+		end
+	},
 	CombatService = {
 		KnockBackApplied = replicatedStorage.Modules.Knit.Services.CombatService.RE:FindFirstChild('KnockBackApplied'),
 	},
