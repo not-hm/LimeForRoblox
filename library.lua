@@ -534,8 +534,9 @@ lib.API.CreateWindow = function(txt)
 				end))
 
 				if cfg[Table.Name].Toggles[tab.Name].Enabled and tab.Function then
-					task.spawn(tab.Function, false)
-					task.spawn(tab.Function, cfg[Table.Name].Toggles[tab.Name].Enabled)
+					task.delay(0.1, function()
+						task.spawn(tab.Function, cfg[Table.Name].Toggles[tab.Name].Enabled)
+					end)
 				end
 
 				return moduleHandler
@@ -762,8 +763,9 @@ lib.API.CreateWindow = function(txt)
 			end))
 
 			if cfg[Table.Name].Enabled and Table.Function then
-				task.spawn(Table.Function, false)
-				task.spawn(Table.Function, cfg[Table.Name].Enabled)
+				task.delay(0.1, function()
+					task.spawn(Table.Function, cfg[Table.Name].Enabled)
+				end)
 			end
 
 			table.insert(lib.connections, ModuleText.MouseButton2Down:Connect(function()
