@@ -1,8 +1,8 @@
 ## Monsoon
-Monsoon is a minecraft hacked client, script inspired by Vape (by 7GrandDadPGN)
+Monsoon is a minecraft hacked client, script inspired by Vape (by 7GrandDadPGN), and [Monsoon](https://discord.com/invite/U69JzRMpFn)
 
 ## Interface
 Normal:
-![image](https://github.com/user-attachments/assets/cebd0dff-f756-4df4-b77f-70ab4286662d)
+![image](image.png)
 
 Support: https://discord.gg/vbaKx8UWU9
