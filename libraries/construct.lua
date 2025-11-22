@@ -10,6 +10,7 @@ local cloneref = cloneref or function(obj)
 end
 local replicatedStorage = cloneref(game:GetService('ReplicatedStorage'))
 local httpService = cloneref(game:GetService('HttpService'))
+local tweenService = cloneref(game:GetService('TweenService'))
 local playersService = cloneref(game:GetService('Players'))
 local lplr = playersService.LocalPlayer
 
@@ -97,6 +98,30 @@ local bd = {
 		EnterQueue = function(self, mode)
 			return replicatedStorage.Modules.Knit.Services.MatchService.RF.EnterQueue:InvokeServer(mode)
 		end,
+	},
+	NotificationController = {
+		SendNotification = function(self, text, duration)
+			local notif = lplr.PlayerGui:WaitForChild("Notifications"):WaitForChild("Notifications").Template:Clone()
+			notif.Text = text
+			notif.Name = 'TextLabel'
+			notif.Visible = true
+			notif.Parent = lplr.PlayerGui:WaitForChild("Notifications"):WaitForChild("Notifications")
+
+			task.wait(duration or 3)
+			local res = tweenService:Create(notif, TweenInfo.new(1), {
+				BackgroundTransparency = 1,
+				TextTransparency = 1
+			})
+			tweenService:Create(notif.UIStroke, TweenInfo.new(1), {
+				Transparency = 1
+			}):Play()
+
+			res:Play()
+			res.Completed:Wait()
+			res:Destroy()
+
+			notif:Destroy()
+		end
 	},
 	ServerData = {
 		Submode = httpService:JSONDecode(replicatedStorage.Modules.ServerData.Cache.Value),
