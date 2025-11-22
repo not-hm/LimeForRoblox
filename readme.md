@@ -1,10 +1,12 @@
 ## Monsoon
-Monsoon is a minecraft hacked client, script inspired by Vape (by 7GrandDadPGN), and [Monsoon](https://discord.com/invite/U69JzRMpFn)
+Monsoon was a Minecraft hacked client available on intent.store and monsoon.wtf that later got ratted and discontinued. Script inspired by Vape/Vxpe (by 7GrandDadPGN), and [Monsoon](https://web.archive.org/web/20231211032353/https://monsoon.wtf/)
 
+#### Supported Games:
+- Bridge Duel
+- BedWars
+ 
 ## Interface
-Monsoon Theme:
-![image]
-Astolfo Theme:
+Normal:
 ![image](image.png)
 
-Support: https://discord.gg/vbaKx8UWU9
+Contact: https://discord.gg/vbaKx8UWU9
