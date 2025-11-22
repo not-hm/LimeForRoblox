@@ -830,7 +830,9 @@ lib.API.Uninject = function()
 
 	for i,v in Windows do
 		for x,d in v.Modules do
-			d:Toggle()
+			if d.Enabled then
+				d:Toggle()
+			end
 		end
 	end
 

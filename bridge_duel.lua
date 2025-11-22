@@ -814,7 +814,7 @@ task.defer(function()
 							local Direction = LocalPlayer.Character:FindFirstChildOfClass("Humanoid").MoveDirection
 							LocalPlayer.Character.PrimaryPart.CFrame = LocalPlayer.Character.PrimaryPart.CFrame + (Direction * 28 * 0.15)
 							Counters += 1
-							if Counters >= 12 then 
+							if Counters >= 12 then
 								break 
 							end
 						end
