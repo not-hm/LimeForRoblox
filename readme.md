@@ -10,6 +10,6 @@ Monsoon was a Minecraft hacked client available on intent.store and monsoon.wtf 
  
 ## Interface
 ![image](image.png)
-![image](image1.png)
+![image](image-1.png)
 
 Contact: https://discord.gg/vbaKx8UWU9
