@@ -534,6 +534,7 @@ lib.API.CreateWindow = function(txt)
 				end))
 
 				if cfg[Table.Name].Toggles[tab.Name].Enabled and tab.Function then
+					task.spawn(tab.Function, false)
 					task.spawn(tab.Function, cfg[Table.Name].Toggles[tab.Name].Enabled)
 				end
 
