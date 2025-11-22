@@ -762,6 +762,7 @@ lib.API.CreateWindow = function(txt)
 			end))
 
 			if cfg[Table.Name].Enabled and Table.Function then
+				task.spawn(Table.Function, false)
 				task.spawn(Table.Function, cfg[Table.Name].Enabled)
 			end
 
