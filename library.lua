@@ -482,9 +482,9 @@ lib.API.CreateWindow = function(txt)
 					end
 
 					if self.Enabled then
-						AddArray(Table.Name)
+						task.spawn(AddArray, Table.Name)
 					else
-						RemoveArray(Table.Name)
+						task.spawn(RemoveArray, Table.Name)
 					end
 
 					configSys:Save()
