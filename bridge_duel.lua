@@ -393,6 +393,7 @@ task.defer(function()
 										SwingAnim:Play()
 									end
 									if BridgeDuel and BridgeDuel.Entity and BridgeDuel.Blink and BridgeDuel.Knit then
+										--[[
 										local TargetEntity = BridgeDuel.Entity.FindByCharacter(Entity)
 										if TargetEntity and TargetEntity.Id then
 											BridgeDuel.Blink.item_action.attack_entity.fire({
@@ -406,6 +407,7 @@ task.defer(function()
 												}
 											})
 										end
+										--]]
 										BridgeDuel.Knit.GetService("ToolService"):AttackPlayerWithSword(Entity, LocalPlayer.Character.PrimaryPart.AssemblyLinearVelocity.Y < 0, Sword.Name, "\226\128\139")
 										if CanSwing and (not CanBlock and not LocalEntity.IsBlocking) then
 											BridgeDuel.Knit.GetController("ViewmodelController"):PlayAnimation(Sword.Name)
