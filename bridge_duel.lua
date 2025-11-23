@@ -327,19 +327,22 @@ task.defer(function()
 									end
 									if BridgeDuel and BridgeDuel.Entity and BridgeDuel.Blink and BridgeDuel.Knit then
 										local TargetEntity = BridgeDuel.Entity.FindByCharacter(Entity)
-										
 										if Library.DeviceType == "Touch" then
 											local AttackButton = LocalPlayer.PlayerGui:WaitForChild("MainGui"):WaitForChild("MobileButtons"):WaitForChild("SwordButtons"):FindFirstChild("Attack")
-											if AttackButton then 
+											if AttackButton then
+												for _, v in pairs(getconnections(AttackButton.MouseButton1Click)) do 
+													v:Fire()
+													print("!!1")
+												end
 												for _, v in pairs(getconnections(AttackButton.Activated)) do 
 													v:Fire()
-													print("!")
-													AttackButton.ImageRectOffset = Vector2.new(146, 146)
-												    AttackButton.ImageLabel.ImageColor3 = Color3.fromRGB(0, 0, 0)
-													task.wait(0.2)
-													AttackButton.ImageRectOffset = Vector2.new(1, 146)
-												    AttackButton.ImageLabel.ImageColor3 = Color3.fromRGB(255, 255, 255)
+													print("!!2")
 												end
+												AttackButton.ImageRectOffset = Vector2.new(146, 146)
+												AttackButton.ImageLabel.ImageColor3 = Color3.fromRGB(0, 0, 0)
+											    task.wait(0.2)
+												AttackButton.ImageRectOffset = Vector2.new(1, 146)
+												AttackButton.ImageLabel.ImageColor3 = Color3.fromRGB(255, 255, 255)
 											else
 												warn("!")
 											end
