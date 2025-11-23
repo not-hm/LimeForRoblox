@@ -302,7 +302,7 @@ task.defer(function()
 						if AType == "Blatant" then
 							ADelay = 0.05
 						elseif AType == "Legit" then
-							ADelay = math.random(20, 60) / 100
+							ADelay = math.random(10, 40) / 100
 						end
 						if IsAlive(LocalPlayer.Character) then
 							local Entity = GetNearestEntity(Distance, AntiBot.Enabled, SortType, TeamCheck, WallCheck, ADirection)
@@ -353,6 +353,8 @@ task.defer(function()
 											BridgeDuel.Blink.player_state.update_cps.fire(8)
 											print("!")
 										end
+										--]]
+										workspace.CurrentCamera.CFrame = CFrame.lookAt(workspace.CurrentCamera.CFrame.Position, Entity.PrimaryPart.Position)
 										if TargetEntity and TargetEntity.Id then
 											BridgeDuel.Blink.item_action.attack_entity.fire({
 												target_entity_id = TargetEntity.Id,
@@ -364,9 +366,7 @@ task.defer(function()
 													those = workspace.Name == "Ok"
 												}
 											})
-										end
-										--]]
-										workspace.CurrentCamera.CFrame = CFrame.lookAt(workspace.CurrentCamera.CFrame.Position, Entity.PrimaryPart.Position)
+										end	
 										BridgeDuel.Knit.GetService("ToolService"):AttackPlayerWithSword(Entity, LocalPlayer.Character.PrimaryPart.AssemblyLinearVelocity.Y < 0, Sword.Name, "\226\128\139")
 										print("!!!")
 										if CanSwing and (not CanBlock and not LocalEntity.IsBlocking) then
@@ -448,7 +448,7 @@ task.defer(function()
 		Name = "Distance",
 		Min = 0,
 		Max = 22,
-		Default = 20,
+		Default = 18,
 		Callback = function(callback)
 			if callback then
 				Distance = callback
