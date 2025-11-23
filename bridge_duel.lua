@@ -300,9 +300,9 @@ task.defer(function()
 				task.spawn(function()
 					repeat
 						if AType == "Blatant" then
-							ADelay = 0.01
+							ADelay = 0.05
 						elseif AType == "Legit" then
-							ADelay = 0.28
+							ADelay = 0.24
 						end
 						if IsAlive(LocalPlayer.Character) then
 							local Entity = GetNearestEntity(Distance, AntiBot.Enabled, SortType, TeamCheck, WallCheck, ADirection)
@@ -316,7 +316,7 @@ task.defer(function()
 									end
 									if LocalEntity then
 										if CanBlock and not LocalEntity.IsBlocking then
-											--BridgeDuel.Knit.GetController("ViewmodelController"):ToggleLoopedAnimation(Sword.Name, true)
+											BridgeDuel.Knit.GetController("ViewmodelController"):ToggleLoopedAnimation(Sword.Name, true)
 											BridgeDuel.Knit.GetService("ToolService"):ToggleBlockSword(true, Sword.Name)
 										end
 									else
@@ -327,6 +327,7 @@ task.defer(function()
 									end
 									if BridgeDuel and BridgeDuel.Entity and BridgeDuel.Blink and BridgeDuel.Knit then
 										local TargetEntity = BridgeDuel.Entity.FindByCharacter(Entity)
+										--[[
 										if Library.DeviceType == "Touch" then
 											local AttackButton = LocalPlayer.PlayerGui:WaitForChild("MainGui"):WaitForChild("MobileButtons"):WaitForChild("SwordButtons"):FindFirstChild("Attack")
 											if AttackButton then  
@@ -346,21 +347,21 @@ task.defer(function()
 											BridgeDuel.Blink.player_state.update_cps.fire(8)
 											print("!!")
 										end
+										--]]
+										BridgeDuel.Blink.player_state.update_cps.fire(math.random(6, 12))
 										if TargetEntity and TargetEntity.Id then
 											BridgeDuel.Blink.item_action.attack_entity.fire({
 												target_entity_id = TargetEntity.Id,
 												is_crit = LocalPlayer.Character.PrimaryPart.AssemblyLinearVelocity.Y < 0,
 												weapon_name = Sword.Name
-												--[[
 												extra = {
 													rizz = "Bro.",
 													sigmas = "The...",
 													those = workspace.Name == "Ok"
 												}
-												--]]
 											})
 										end
-										BridgeDuel.Knit.GetService("ToolService"):AttackPlayerWithSword(Entity, LocalPlayer.Character.PrimaryPart.AssemblyLinearVelocity.Y < 0, Sword.Name) --"\226\128\139")
+										BridgeDuel.Knit.GetService("ToolService"):AttackPlayerWithSword(Entity, LocalPlayer.Character.PrimaryPart.AssemblyLinearVelocity.Y < 0, Sword.Name, "\226\128\139")
 										print("!!!")
 										if CanSwing and (not CanBlock and not LocalEntity.IsBlocking) then
 											BridgeDuel.Knit.GetController("ViewmodelController"):PlayAnimation(Sword.Name)
@@ -374,7 +375,7 @@ task.defer(function()
 							else
 								KillAuraEntity = nil
 								if LocalEntity and LocalEntity.IsBlocking then
-									--BridgeDuel.Knit.GetController("ViewmodelController"):ToggleLoopedAnimation(Sword.Name, false)
+									BridgeDuel.Knit.GetController("ViewmodelController"):ToggleLoopedAnimation(Sword.Name, false)
 									BridgeDuel.Knit.GetService("ToolService"):ToggleBlockSword(false, Sword.Name)
 								end
 								if SwingAnim and SwingAnim.IsPlaying then
@@ -386,7 +387,7 @@ task.defer(function()
 					until not KillAura.Enabled
 					KillAuraEntity = nil
 					if LocalEntity and LocalEntity.IsBlocking then
-						--BridgeDuel.Knit.GetController("ViewmodelController"):ToggleLoopedAnimation(Sword.Name, false)
+						BridgeDuel.Knit.GetController("ViewmodelController"):ToggleLoopedAnimation(Sword.Name, false)
 						BridgeDuel.Knit.GetService("ToolService"):ToggleBlockSword(false, Sword.Name)
 					end
 					if SwingAnim and SwingAnim.IsPlaying then
@@ -400,7 +401,7 @@ task.defer(function()
 						else
 							EntityCFrame = nil
 						end
-						task.wait(0.01)
+						task.wait()
 					until not KillAura.Enabled
 				end)
 			end
@@ -430,7 +431,7 @@ task.defer(function()
 		Name = "Direction",
 		Min = 0,
 		Max = 360,
-		Default = 360,
+		Default = 180,
 		Callback = function(callback)
 			if callback then
 				ADirection = callback
