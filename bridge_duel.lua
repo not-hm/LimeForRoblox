@@ -302,7 +302,7 @@ task.defer(function()
 						if AType == "Blatant" then
 							ADelay = 0.05
 						elseif AType == "Legit" then
-							ADelay = math.random(40, 80) / 100
+							ADelay = math.random(20, 60) / 100
 						end
 						if IsAlive(LocalPlayer.Character) then
 							local Entity = GetNearestEntity(Distance, AntiBot.Enabled, SortType, TeamCheck, WallCheck, ADirection)
@@ -434,7 +434,7 @@ task.defer(function()
 		Name = "Direction",
 		Min = 0,
 		Max = 360,
-		Default = 180,
+		Default = 360,
 		Callback = function(callback)
 			if callback then
 				ADirection = callback
@@ -474,6 +474,7 @@ task.defer(function()
 	})
 	local KillAuraSwing = KillAura:CreateMiniToggle({
 		Name = "Swing",
+		Enabled = true,
 		Callback = function(callback)
 			if callback then
 				CanSwing = true
@@ -1372,6 +1373,7 @@ task.defer(function()
 	local original
 	Rotations = TabSections.Player:CreateToggle({
 		Name = "Rotations",
+		Enabled = true,
 		Callback = function(callback)
 			if callback then
 				original = hookmetamethod(game, "__newindex", function(self, key, val)
