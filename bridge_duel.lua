@@ -330,24 +330,21 @@ task.defer(function()
 										if Library.DeviceType == "Touch" then
 											local AttackButton = LocalPlayer.PlayerGui:WaitForChild("MainGui"):WaitForChild("MobileButtons"):WaitForChild("SwordButtons"):FindFirstChild("Attack")
 											if AttackButton then  
-												BridgeDuel.Blink.player_state.update_cps.fire(math.random(5, 8))
+												BridgeDuel.Blink.player_state.update_cps.fire(8)
+											    Sword:Activate()
+											    mouse1click()
 												print("!")
-												for _, v in pairs(getconnections(AttackButton.MouseButton1Click)) do 
+												for _, v in pairs(getconnections(AttackButton.Activated)) do 
 													v:Fire()
 													print("!!")
 												end
-												for _, v in pairs(getconnections(AttackButton.Activated)) do 
-													v:Fire()
-													print("!!!")
-												end
-												print("~")
 											else
 												warn("!")
 											end
 										elseif Library.DeviceType == "Mouse" then
 											Sword:Activate()
 											mouse1click()
-											BridgeDuel.Blink.player_state.update_cps.fire(math.random(5, 8))
+											BridgeDuel.Blink.player_state.update_cps.fire(8)
 											print("!!")
 										end
 										if TargetEntity and TargetEntity.Id then
