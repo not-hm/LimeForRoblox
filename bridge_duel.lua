@@ -352,7 +352,7 @@ task.defer(function()
 											BridgeDuel.Blink.player_state.update_cps.fire(8)
 											print("!")
 										end
-										workspace.CurrentCamera.CFrame = CFrame.lookAt(workspace.CurrentCamera.CFrame.Position, Entity.PrimaryPart.Position)
+										--workspace.CurrentCamera.CFrame = CFrame.lookAt(workspace.CurrentCamera.CFrame.Position, Entity.PrimaryPart.Position)
 										if TargetEntity and TargetEntity.Id then
 											BridgeDuel.Blink.item_action.attack_entity.fire({
 												target_entity_id = TargetEntity.Id,
