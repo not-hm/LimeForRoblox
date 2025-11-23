@@ -353,7 +353,7 @@ task.defer(function()
 											BridgeDuel.Blink.item_action.attack_entity.fire({
 												target_entity_id = TargetEntity.Id,
 												is_crit = LocalPlayer.Character.PrimaryPart.AssemblyLinearVelocity.Y < 0,
-												weapon_name = Sword.Name
+												weapon_name = Sword.Name,
 												extra = {
 													rizz = "Bro.",
 													sigmas = "The...",
