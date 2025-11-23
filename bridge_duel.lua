@@ -396,18 +396,25 @@ task.defer(function()
 										if Library.DeviceType == "Touch" then
 											local AttackButton = LocalPlayer.PlayerGui:WaitForChild("MainGui"):WaitForChild("MobileButtons"):WaitForChild("SwordButtons"):FindFirstChild("Attack")
 											if AttackButton then  
+												BridgeDuel.Blink.player_state.update_cps.fire(math.random(6, 8))
+												print("!")
 												for _, v in pairs(getconnections(AttackButton.MouseButton1Click)) do 
 													v:Fire()
-													print("success")
+													print("!!")
 												end
+												for _, v in pairs(getconnections(AttackButton.Activated)) do 
+													v:Fire()
+													print("!!!")
+												end
+												print("~")
 											else
-												warn("failed")
+												warn("!")
 											end
 										elseif Library.DeviceType == "Mouse" then
 											Sword:Activate()
 											mouse1click()
-											BridgeDuel.Blink.player_state.update_cps.fire(math.random(4, 12))
-											print("success")
+											BridgeDuel.Blink.player_state.update_cps.fire(math.random(6, 8))
+											print("!!")
 										end
 										if TargetEntity and TargetEntity.Id then
 											BridgeDuel.Blink.item_action.attack_entity.fire({
@@ -424,6 +431,7 @@ task.defer(function()
 											})
 										end
 										BridgeDuel.Knit.GetService("ToolService"):AttackPlayerWithSword(Entity, LocalPlayer.Character.PrimaryPart.AssemblyLinearVelocity.Y < 0, Sword.Name) --"\226\128\139")
+										print("!!!")
 										if CanSwing and (not CanBlock and not LocalEntity.IsBlocking) then
 											BridgeDuel.Knit.GetController("ViewmodelController"):PlayAnimation(Sword.Name)
 										end
