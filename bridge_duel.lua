@@ -302,7 +302,7 @@ task.defer(function()
 						if AType == "Blatant" then
 							ADelay = 0.05
 						elseif AType == "Legit" then
-							ADelay = 0.45
+							ADelay = math.random(40, 80) / 100
 						end
 						if IsAlive(LocalPlayer.Character) then
 							local Entity = GetNearestEntity(Distance, AntiBot.Enabled, SortType, TeamCheck, WallCheck, ADirection)
@@ -327,16 +327,18 @@ task.defer(function()
 									end
 									if BridgeDuel and BridgeDuel.Entity and BridgeDuel.Blink and BridgeDuel.Knit then
 										local TargetEntity = BridgeDuel.Entity.FindByCharacter(Entity)
-										--[[
+										
 										if Library.DeviceType == "Touch" then
 											local AttackButton = LocalPlayer.PlayerGui:WaitForChild("MainGui"):WaitForChild("MobileButtons"):WaitForChild("SwordButtons"):FindFirstChild("Attack")
-											if AttackButton then  
-												BridgeDuel.Blink.player_state.update_cps.fire(8)
-											    Sword:Activate()
-												print("!")
+											if AttackButton then 
 												for _, v in pairs(getconnections(AttackButton.Activated)) do 
 													v:Fire()
-													print("!!")
+													print("!")
+													AttackButton.ImageRectOffset = Vector2.new(146, 146)
+												    AttackButton.ImageLabel.ImageColor3 = Color3.fromRGB(0, 0, 0)
+													task.wait(0.2)
+													AttackButton.ImageRectOffset = Vector2.new(1, 146)
+												    AttackButton.ImageLabel.ImageColor3 = Color3.fromRGB(255, 255, 255)
 												end
 											else
 												warn("!")
@@ -345,10 +347,8 @@ task.defer(function()
 											Sword:Activate()
 											mouse1click()
 											BridgeDuel.Blink.player_state.update_cps.fire(8)
-											print("!!")
+											print("!")
 										end
-										--]]
-										BridgeDuel.Blink.player_state.update_cps.fire(math.random(6, 12))
 										if TargetEntity and TargetEntity.Id then
 											BridgeDuel.Blink.item_action.attack_entity.fire({
 												target_entity_id = TargetEntity.Id,
