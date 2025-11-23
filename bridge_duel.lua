@@ -340,7 +340,7 @@ task.defer(function()
 												end
 												AttackButton.ImageRectOffset = Vector2.new(146, 146)
 												AttackButton.ImageLabel.ImageColor3 = Color3.fromRGB(0, 0, 0)
-											    task.wait(0.2)
+											    task.wait(0.1)
 												AttackButton.ImageRectOffset = Vector2.new(1, 146)
 												AttackButton.ImageLabel.ImageColor3 = Color3.fromRGB(255, 255, 255)
 											else
@@ -412,8 +412,8 @@ task.defer(function()
 	})
 	local KillAuraType = KillAura:CreateDropdown({
 		Name = "Kill_Aura_Type",
-		List = {"Blatant", "Legit"},
-		Default = "Legit",
+		List = {"Legit", "Blatant"},
+		Default = "Blatant",
 		Callback = function(callback)
 			if callback then
 				AType = callback
@@ -444,8 +444,8 @@ task.defer(function()
 	local KillAuraDistance = KillAura:CreateSlider({
 		Name = "Distance",
 		Min = 0,
-		Max = 20,
-		Default = 18,
+		Max = 22,
+		Default = 20,
 		Callback = function(callback)
 			if callback then
 				Distance = callback
