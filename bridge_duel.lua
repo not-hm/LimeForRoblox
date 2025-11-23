@@ -354,7 +354,7 @@ local EntityCFrame
 local KillAuraEntity
 task.defer(function()
 	local WallCheck, TeamCheck, SortType, ADirection = true, false, nil, nil
-	local Distance, ADelay, AType = nil, nil, "Blatant"
+	local Distance, ADelay, AType = nil, nil, "Legit"
 	local CanSwing, CanBlock = false, false
 	local LocalEntity
 	local SwingAnim
@@ -374,7 +374,6 @@ task.defer(function()
 							local Entity = GetNearestEntity(Distance, AntiBot.Enabled, SortType, TeamCheck, WallCheck, ADirection)
 							if Entity and Entity.PrimaryPart then
 								KillAuraEntity = Entity
-								EntityCFrame = CFrame.lookAt(LocalPlayer.Character.PrimaryPart.Position, Vector3.new(Entity.PrimaryPart.Position.X, LocalPlayer.Character.PrimaryPart.Position.Y, Entity.PrimaryPart.Position.Z))
 								Sword = CheckTool("sword") or GetTool("sword")
 								if Sword then
 									if not SwingAnim then
@@ -393,30 +392,38 @@ task.defer(function()
 										SwingAnim:Play()
 									end
 									if BridgeDuel and BridgeDuel.Entity and BridgeDuel.Blink and BridgeDuel.Knit then
+										local TargetEntity = BridgeDuel.Entity.FindByCharacter(Entity)
 										if Library.DeviceType == "Touch" then
 											local AttackButton = LocalPlayer.PlayerGui:WaitForChild("MainGui"):WaitForChild("MobileButtons"):WaitForChild("SwordButtons"):FindFirstChild("Attack")
-											if not AttackButton then return end
-											for _, v in pairs(getconnections(AttackButton.MouseButton1Click)) do 
-												v:Fire()
+											if AttackButton then  
+												for _, v in pairs(getconnections(AttackButton.MouseButton1Click)) do 
+													v:Fire()
+													print("success")
+												end
+											else
+												warn("failed")
 											end
 										elseif Library.DeviceType == "Mouse" then
-											BridgeDuel.Blink.player_state.update_cps.fire(math.random(4, 12))
+											Sword:Activate()
 											mouse1click()
+											BridgeDuel.Blink.player_state.update_cps.fire(math.random(4, 12))
+											print("success")
 										end
-										local TargetEntity = BridgeDuel.Entity.FindByCharacter(Entity)
 										if TargetEntity and TargetEntity.Id then
 											BridgeDuel.Blink.item_action.attack_entity.fire({
 												target_entity_id = TargetEntity.Id,
 												is_crit = LocalPlayer.Character.PrimaryPart.AssemblyLinearVelocity.Y < 0,
-												weapon_name = Sword.Name,
+												weapon_name = Sword.Name
+												--[[
 												extra = {
 													rizz = "Bro.",
 													sigmas = "The...",
 													those = workspace.Name == "Ok"
 												}
+												--]]
 											})
 										end
-										BridgeDuel.Knit.GetService("ToolService"):AttackPlayerWithSword(Entity, LocalPlayer.Character.PrimaryPart.AssemblyLinearVelocity.Y < 0, Sword.Name, "\226\128\139")
+										BridgeDuel.Knit.GetService("ToolService"):AttackPlayerWithSword(Entity, LocalPlayer.Character.PrimaryPart.AssemblyLinearVelocity.Y < 0, Sword.Name) --"\226\128\139")
 										if CanSwing and (not CanBlock and not LocalEntity.IsBlocking) then
 											BridgeDuel.Knit.GetController("ViewmodelController"):PlayAnimation(Sword.Name)
 										end
@@ -427,7 +434,6 @@ task.defer(function()
 									end
 								end
 							else
-								EntityCFrame = nil
 								KillAuraEntity = nil
 								if LocalEntity and LocalEntity.IsBlocking then
 									BridgeDuel.Knit.GetController("ViewmodelController"):ToggleLoopedAnimation(Sword.Name, false)
@@ -440,7 +446,6 @@ task.defer(function()
 						end
 						task.wait(ADelay)
 					until not KillAura.Enabled
-					EntityCFrame = nil
 					KillAuraEntity = nil
 					if LocalEntity and LocalEntity.IsBlocking then
 						BridgeDuel.Knit.GetController("ViewmodelController"):ToggleLoopedAnimation(Sword.Name, false)
@@ -450,13 +455,23 @@ task.defer(function()
 						SwingAnim:Stop()
 					end
 				end)
+				task.spawn(function()
+					repeat
+						if IsAlive(LocalPlayer.Character) and KillAuraEntity and IsAlive(KillAuraEntity) then
+							EntityCFrame = CFrame.lookAt(LocalPlayer.Character.PrimaryPart.Position, Vector3.new(KillAuraEntity.PrimaryPart.Position.X, LocalPlayer.Character.PrimaryPart.Position.Y, KillAuraEntity.PrimaryPart.Position.Z))
+						else
+							EntityCFrame = nil
+						end
+						task.wait(0.01)
+					until not KillAura.Enabled
+				end)
 			end
 		end
 	})
 	local KillAuraType = KillAura:CreateDropdown({
 		Name = "Kill_Aura_Type",
-		List = {"Legit", "Blatant"},
-		Default = "Blatant",
+		List = {"Blatant", "Legit"},
+		Default = "Legit",
 		Callback = function(callback)
 			if callback then
 				AType = callback
