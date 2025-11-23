@@ -302,7 +302,7 @@ task.defer(function()
 						if AType == "Blatant" then
 							ADelay = 0.05
 						elseif AType == "Legit" then
-							ADelay = 0.24
+							ADelay = 0.45
 						end
 						if IsAlive(LocalPlayer.Character) then
 							local Entity = GetNearestEntity(Distance, AntiBot.Enabled, SortType, TeamCheck, WallCheck, ADirection)
