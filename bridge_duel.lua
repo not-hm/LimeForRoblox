@@ -283,78 +283,12 @@ task.defer(function()
 	})
 end)
 
-local Hitbox
-task.defer(function()
-	local Size = {X = 2.4, Y = 5, Z = 2.4}
-	Hitbox = TabSections.Combat:CreateToggle({
-		Name = "Hitbox",
-		Callback = function(callback)
-			if callback then
-				task.spawn(function()
-					repeat
-						for _, plr in pairs(Players:GetPlayers()) do
-							if plr ~= LocalPlayer and IsAlive(plr.Character) then
-								local Hitbox = plr.Character:FindFirstChild("Hitbox")
-								if Hitbox and Hitbox.Size ~= Vector3.new(Size.X, Size.Y, Size.Z) then
-									Hitbox.Size = Vector3.new(Size.X, Size.Y, Size.Z)
-								end
-							end
-						end
-						task.wait(2)
-					until not Hitbox.Enabled
-					for _, plr in pairs(Players:GetPlayers()) do
-						if plr ~= LocalPlayer and IsAlive(plr.Character) then
-							local Hitbox = plr.Character:FindFirstChild("Hitbox")
-							if Hitbox and Hitbox.Size ~= Vector3.new(2.4, 5, 2.4) then
-								Hitbox.Size = Vector3.new(2.4, 5, 2.4)
-							end
-						end
-					end
-				end)
-			end
-		end
-	})
-	local HitboxSizeX = Hitbox:CreateSlider({
-		Name = "X",
-		Min = 0,
-		Max = 16,
-		Default = 2.4,
-		Callback = function(callback)
-			if callback then
-				Size.X = callback
-			end
-		end
-	})
-	local HitboxSizeY = Hitbox:CreateSlider({
-		Name = "Y",
-		Min = 0,
-		Max = 16,
-		Default = 5,
-		Callback = function(callback)
-			if callback then
-				Size.Y = callback
-			end
-		end
-	})
-	local HitboxSizeZ = Hitbox:CreateSlider({
-		Name = "Z",
-		Min = 0,
-		Max = 16,
-		Default = 2.4,
-		Callback = function(callback)
-			if callback then
-				Size.Z = callback
-			end
-		end
-	})
-end)
-
 local KillAura
 local EntityCFrame
 local KillAuraEntity
 task.defer(function()
 	local WallCheck, TeamCheck, SortType, ADirection = true, false, nil, nil
-	local Distance, ADelay, AType = nil, nil, "Blatant"
+	local Distance, ADelay, AType = nil, nil, "Legit"
 	local CanSwing, CanBlock = false, false
 	local LocalEntity
 	local SwingAnim
@@ -366,15 +300,14 @@ task.defer(function()
 				task.spawn(function()
 					repeat
 						if AType == "Blatant" then
-							ADelay = 0.01
+							ADelay = 0.05
 						elseif AType == "Legit" then
-							ADelay = 0.2
+							ADelay = math.random(10, 40) / 100
 						end
 						if IsAlive(LocalPlayer.Character) then
 							local Entity = GetNearestEntity(Distance, AntiBot.Enabled, SortType, TeamCheck, WallCheck, ADirection)
 							if Entity and Entity.PrimaryPart then
 								KillAuraEntity = Entity
-								EntityCFrame = CFrame.lookAt(LocalPlayer.Character.PrimaryPart.Position, Vector3.new(Entity.PrimaryPart.Position.X, LocalPlayer.Character.PrimaryPart.Position.Y, Entity.PrimaryPart.Position.Z))
 								Sword = CheckTool("sword") or GetTool("sword")
 								if Sword then
 									if not SwingAnim then
@@ -392,9 +325,34 @@ task.defer(function()
 									if CanSwing and not SwingAnim.IsPlaying and (not CanBlock and not LocalEntity.IsBlocking) then
 										SwingAnim:Play()
 									end
-									workspace.CurrentCamera.CFrame = CFrame.lookAt(workspace.CurrentCamera.CFrame.Position, Entity.PrimaryPart.Position)
 									if BridgeDuel and BridgeDuel.Entity and BridgeDuel.Blink and BridgeDuel.Knit then
 										local TargetEntity = BridgeDuel.Entity.FindByCharacter(Entity)
+										if Library.DeviceType == "Touch" then
+											local AttackButton = LocalPlayer.PlayerGui:WaitForChild("MainGui"):WaitForChild("MobileButtons"):WaitForChild("SwordButtons"):FindFirstChild("Attack")
+											if AttackButton then
+												for _, v in pairs(getconnections(AttackButton.MouseButton1Click)) do 
+													v:Fire()
+													print("!!1")
+												end
+												for _, v in pairs(getconnections(AttackButton.Activated)) do 
+													v:Fire()
+													print("!!2")
+												end
+												AttackButton.ImageRectOffset = Vector2.new(146, 146)
+												AttackButton.ImageLabel.ImageColor3 = Color3.fromRGB(0, 0, 0)
+											    task.wait(0.1)
+												AttackButton.ImageRectOffset = Vector2.new(1, 146)
+												AttackButton.ImageLabel.ImageColor3 = Color3.fromRGB(255, 255, 255)
+											else
+												warn("!")
+											end
+										elseif Library.DeviceType == "Mouse" then
+											Sword:Activate()
+											mouse1click()
+											BridgeDuel.Blink.player_state.update_cps.fire(8)
+											print("!")
+										end
+										workspace.CurrentCamera.CFrame = CFrame.lookAt(workspace.CurrentCamera.CFrame.Position, Entity.PrimaryPart.Position)
 										if TargetEntity and TargetEntity.Id then
 											BridgeDuel.Blink.item_action.attack_entity.fire({
 												target_entity_id = TargetEntity.Id,
@@ -406,8 +364,9 @@ task.defer(function()
 													those = workspace.Name == "Ok"
 												}
 											})
-										end
+										end	
 										BridgeDuel.Knit.GetService("ToolService"):AttackPlayerWithSword(Entity, LocalPlayer.Character.PrimaryPart.AssemblyLinearVelocity.Y < 0, Sword.Name, "\226\128\139")
+										print("!!!")
 										if CanSwing and (not CanBlock and not LocalEntity.IsBlocking) then
 											BridgeDuel.Knit.GetController("ViewmodelController"):PlayAnimation(Sword.Name)
 										end
@@ -418,7 +377,6 @@ task.defer(function()
 									end
 								end
 							else
-								EntityCFrame = nil
 								KillAuraEntity = nil
 								if LocalEntity and LocalEntity.IsBlocking then
 									BridgeDuel.Knit.GetController("ViewmodelController"):ToggleLoopedAnimation(Sword.Name, false)
@@ -431,7 +389,6 @@ task.defer(function()
 						end
 						task.wait(ADelay)
 					until not KillAura.Enabled
-					EntityCFrame = nil
 					KillAuraEntity = nil
 					if LocalEntity and LocalEntity.IsBlocking then
 						BridgeDuel.Knit.GetController("ViewmodelController"):ToggleLoopedAnimation(Sword.Name, false)
@@ -440,6 +397,16 @@ task.defer(function()
 					if SwingAnim and SwingAnim.IsPlaying then
 						SwingAnim:Stop()
 					end
+				end)
+				task.spawn(function()
+					repeat
+						if IsAlive(LocalPlayer.Character) and KillAuraEntity and IsAlive(KillAuraEntity) then
+							EntityCFrame = CFrame.lookAt(LocalPlayer.Character.PrimaryPart.Position, Vector3.new(KillAuraEntity.PrimaryPart.Position.X, LocalPlayer.Character.PrimaryPart.Position.Y, KillAuraEntity.PrimaryPart.Position.Z))
+						else
+							EntityCFrame = nil
+						end
+						task.wait()
+					until not KillAura.Enabled
 				end)
 			end
 		end
@@ -479,7 +446,7 @@ task.defer(function()
 		Name = "Distance",
 		Min = 0,
 		Max = 22,
-		Default = 20,
+		Default = 18,
 		Callback = function(callback)
 			if callback then
 				Distance = callback
@@ -508,6 +475,7 @@ task.defer(function()
 	})
 	local KillAuraSwing = KillAura:CreateMiniToggle({
 		Name = "Swing",
+		Enabled = true,
 		Callback = function(callback)
 			if callback then
 				CanSwing = true
@@ -1399,48 +1367,6 @@ task.defer(function()
 	})
 end)
 
-local Reach
-task.defer(function()
-	local LocalEntity
-	local Distance = 18
-	Reach = TabSections.Player:CreateToggle({
-		Name = "Reach",
-		Callback = function(callback)
-			if callback then
-				task.spawn(function()
-					repeat
-						task.wait()
-						if IsAlive(LocalPlayer.Character) then
-							if BridgeDuel.Constant.Melee.REACH_IN_STUDS ~= Distance then
-								BridgeDuel.Constant.Melee.REACH_IN_STUDS = Distance / 2
-							end
-							LocalEntity = BridgeDuel.Entity.LocalEntity
-							if LocalEntity and LocalEntity.Reach ~= Distance then
-								LocalEntity.Reach = Distance
-							end
-						end
-					until not Reach.Enabled
-					BridgeDuel.Constant.Melee.REACH_IN_STUDS = 9
-					if LocalEntity and LocalEntity.Reach then
-						LocalEntity.Reach = 18
-					end
-				end)
-			end
-		end
-	})
-	local ReachDistance = Reach:CreateSlider({
-		Name = "Distancee",
-		Min = 0,
-		Max = 22,
-		Default = 18,
-		Callback = function(callback)
-			if callback then
-				Distance = callback
-			end
-		end
-	})
-end)
-
 local Scaffold
 local Rotations
 local PlaceCFrame
@@ -1448,6 +1374,7 @@ task.defer(function()
 	local original
 	Rotations = TabSections.Player:CreateToggle({
 		Name = "Rotations",
+		Enabled = true,
 		Callback = function(callback)
 			if callback then
 				original = hookmetamethod(game, "__newindex", function(self, key, val)
