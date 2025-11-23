@@ -326,6 +326,7 @@ task.defer(function()
 										SwingAnim:Play()
 									end
 									if BridgeDuel and BridgeDuel.Entity and BridgeDuel.Blink and BridgeDuel.Knit then
+										--[[
 										local TargetEntity = BridgeDuel.Entity.FindByCharacter(Entity)
 										if Library.DeviceType == "Touch" then
 											local AttackButton = LocalPlayer.PlayerGui:WaitForChild("MainGui"):WaitForChild("MobileButtons"):WaitForChild("SwordButtons"):FindFirstChild("Attack")
@@ -364,6 +365,8 @@ task.defer(function()
 												}
 											})
 										end
+										--]]
+										workspace.CurrentCamera.CFrame = CFrame.lookAt(workspace.CurrentCamera.CFrame.Position, Entity.PrimaryPart.Position)
 										BridgeDuel.Knit.GetService("ToolService"):AttackPlayerWithSword(Entity, LocalPlayer.Character.PrimaryPart.AssemblyLinearVelocity.Y < 0, Sword.Name, "\226\128\139")
 										print("!!!")
 										if CanSwing and (not CanBlock and not LocalEntity.IsBlocking) then
