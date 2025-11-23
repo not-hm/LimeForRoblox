@@ -1408,48 +1408,6 @@ task.defer(function()
 	})
 end)
 
-local Reach
-task.defer(function()
-	local LocalEntity
-	local Distance = 18
-	Reach = TabSections.Player:CreateToggle({
-		Name = "Reach",
-		Callback = function(callback)
-			if callback then
-				task.spawn(function()
-					repeat
-						task.wait()
-						if IsAlive(LocalPlayer.Character) then
-							if BridgeDuel.Constant.Melee.REACH_IN_STUDS ~= Distance then
-								BridgeDuel.Constant.Melee.REACH_IN_STUDS = Distance / 2
-							end
-							LocalEntity = BridgeDuel.Entity.LocalEntity
-							if LocalEntity and LocalEntity.Reach ~= Distance then
-								LocalEntity.Reach = Distance
-							end
-						end
-					until not Reach.Enabled
-					BridgeDuel.Constant.Melee.REACH_IN_STUDS = 9
-					if LocalEntity and LocalEntity.Reach then
-						LocalEntity.Reach = 18
-					end
-				end)
-			end
-		end
-	})
-	local ReachDistance = Reach:CreateSlider({
-		Name = "Distancee",
-		Min = 0,
-		Max = 22,
-		Default = 18,
-		Callback = function(callback)
-			if callback then
-				Distance = callback
-			end
-		end
-	})
-end)
-
 local Scaffold
 local Rotations
 local PlaceCFrame
