@@ -332,7 +332,6 @@ task.defer(function()
 											if AttackButton then  
 												BridgeDuel.Blink.player_state.update_cps.fire(8)
 											    Sword:Activate()
-											    mouse1click()
 												print("!")
 												for _, v in pairs(getconnections(AttackButton.Activated)) do 
 													v:Fire()
