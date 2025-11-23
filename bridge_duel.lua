@@ -283,72 +283,6 @@ task.defer(function()
 	})
 end)
 
-local Hitbox
-task.defer(function()
-	local Size = {X = 2.4, Y = 5, Z = 2.4}
-	Hitbox = TabSections.Combat:CreateToggle({
-		Name = "Hitbox",
-		Callback = function(callback)
-			if callback then
-				task.spawn(function()
-					repeat
-						for _, plr in pairs(Players:GetPlayers()) do
-							if plr ~= LocalPlayer and IsAlive(plr.Character) then
-								local Hitbox = plr.Character:FindFirstChild("Hitbox")
-								if Hitbox and Hitbox.Size ~= Vector3.new(Size.X, Size.Y, Size.Z) then
-									Hitbox.Size = Vector3.new(Size.X, Size.Y, Size.Z)
-								end
-							end
-						end
-						task.wait(2)
-					until not Hitbox.Enabled
-					for _, plr in pairs(Players:GetPlayers()) do
-						if plr ~= LocalPlayer and IsAlive(plr.Character) then
-							local Hitbox = plr.Character:FindFirstChild("Hitbox")
-							if Hitbox and Hitbox.Size ~= Vector3.new(2.4, 5, 2.4) then
-								Hitbox.Size = Vector3.new(2.4, 5, 2.4)
-							end
-						end
-					end
-				end)
-			end
-		end
-	})
-	local HitboxSizeX = Hitbox:CreateSlider({
-		Name = "X",
-		Min = 0,
-		Max = 16,
-		Default = 2.4,
-		Callback = function(callback)
-			if callback then
-				Size.X = callback
-			end
-		end
-	})
-	local HitboxSizeY = Hitbox:CreateSlider({
-		Name = "Y",
-		Min = 0,
-		Max = 16,
-		Default = 5,
-		Callback = function(callback)
-			if callback then
-				Size.Y = callback
-			end
-		end
-	})
-	local HitboxSizeZ = Hitbox:CreateSlider({
-		Name = "Z",
-		Min = 0,
-		Max = 16,
-		Default = 2.4,
-		Callback = function(callback)
-			if callback then
-				Size.Z = callback
-			end
-		end
-	})
-end)
-
 local KillAura
 local EntityCFrame
 local KillAuraEntity
@@ -368,7 +302,7 @@ task.defer(function()
 						if AType == "Blatant" then
 							ADelay = 0.01
 						elseif AType == "Legit" then
-							ADelay = 0.24
+							ADelay = 0.28
 						end
 						if IsAlive(LocalPlayer.Character) then
 							local Entity = GetNearestEntity(Distance, AntiBot.Enabled, SortType, TeamCheck, WallCheck, ADirection)
@@ -382,7 +316,7 @@ task.defer(function()
 									end
 									if LocalEntity then
 										if CanBlock and not LocalEntity.IsBlocking then
-											BridgeDuel.Knit.GetController("ViewmodelController"):ToggleLoopedAnimation(Sword.Name, true)
+											--BridgeDuel.Knit.GetController("ViewmodelController"):ToggleLoopedAnimation(Sword.Name, true)
 											BridgeDuel.Knit.GetService("ToolService"):ToggleBlockSword(true, Sword.Name)
 										end
 									else
@@ -396,7 +330,7 @@ task.defer(function()
 										if Library.DeviceType == "Touch" then
 											local AttackButton = LocalPlayer.PlayerGui:WaitForChild("MainGui"):WaitForChild("MobileButtons"):WaitForChild("SwordButtons"):FindFirstChild("Attack")
 											if AttackButton then  
-												BridgeDuel.Blink.player_state.update_cps.fire(math.random(6, 8))
+												BridgeDuel.Blink.player_state.update_cps.fire(math.random(5, 8))
 												print("!")
 												for _, v in pairs(getconnections(AttackButton.MouseButton1Click)) do 
 													v:Fire()
@@ -413,7 +347,7 @@ task.defer(function()
 										elseif Library.DeviceType == "Mouse" then
 											Sword:Activate()
 											mouse1click()
-											BridgeDuel.Blink.player_state.update_cps.fire(math.random(6, 8))
+											BridgeDuel.Blink.player_state.update_cps.fire(math.random(5, 8))
 											print("!!")
 										end
 										if TargetEntity and TargetEntity.Id then
@@ -444,7 +378,7 @@ task.defer(function()
 							else
 								KillAuraEntity = nil
 								if LocalEntity and LocalEntity.IsBlocking then
-									BridgeDuel.Knit.GetController("ViewmodelController"):ToggleLoopedAnimation(Sword.Name, false)
+									--BridgeDuel.Knit.GetController("ViewmodelController"):ToggleLoopedAnimation(Sword.Name, false)
 									BridgeDuel.Knit.GetService("ToolService"):ToggleBlockSword(false, Sword.Name)
 								end
 								if SwingAnim and SwingAnim.IsPlaying then
@@ -456,7 +390,7 @@ task.defer(function()
 					until not KillAura.Enabled
 					KillAuraEntity = nil
 					if LocalEntity and LocalEntity.IsBlocking then
-						BridgeDuel.Knit.GetController("ViewmodelController"):ToggleLoopedAnimation(Sword.Name, false)
+						--BridgeDuel.Knit.GetController("ViewmodelController"):ToggleLoopedAnimation(Sword.Name, false)
 						BridgeDuel.Knit.GetService("ToolService"):ToggleBlockSword(false, Sword.Name)
 					end
 					if SwingAnim and SwingAnim.IsPlaying then
@@ -510,8 +444,8 @@ task.defer(function()
 	local KillAuraDistance = KillAura:CreateSlider({
 		Name = "Distance",
 		Min = 0,
-		Max = 22,
-		Default = 20,
+		Max = 20,
+		Default = 18,
 		Callback = function(callback)
 			if callback then
 				Distance = callback
