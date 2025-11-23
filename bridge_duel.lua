@@ -677,37 +677,6 @@ task.defer(function()
 	})
 end)
 
---[[ patched
-local AquaVClipSex
-task.defer(function()
-	AquaVClipSex = TabSections.Exploit:CreateToggle({
-		Name = "AquaVClipSex",
-		Callback = function(callback)
-			if callback then
-				task.spawn(function()
-					repeat
-						task.wait(2)
-						local Data = {
-							consistencyFlags = math.huge,
-							cpsFlags = math.huge,
-							topCps = math.huge,
-							totalClicks = math.huge,
-							totalConsistentClicks = math.huge,
-							holdTimeFlags = math.huge,
-							averageHoldTime = math.huge,
-							lastKey = Enum.KeyCode.Space,
-							pressed = math.huge
-						}
-
-						BridgeDuel.Knit.GetService("NetworkService"):SendReport(Data)
-					until not MessLogger.Enabled
-				end)
-			end
-		end
-	})
-end)
---]]
-
 local MassReport
 task.defer(function()
 	local Reported = {}
@@ -814,7 +783,7 @@ task.defer(function()
 							local Direction = LocalPlayer.Character:FindFirstChildOfClass("Humanoid").MoveDirection
 							LocalPlayer.Character.PrimaryPart.CFrame = LocalPlayer.Character.PrimaryPart.CFrame + (Direction * 28 * 0.15)
 							Counters += 1
-							if Counters >= 12 then 
+							if Counters >= 8 then 
 								break 
 							end
 						end
