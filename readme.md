@@ -1,5 +1,5 @@
 ## Lime
-Lime is an old Minecraft hacked client that was later discontinued and rebranded as Exire, this script is inspired by "VapeV4ForRoblox" created by 7GrandDadPGN
+Lime was an old Minecraft hacked client that was later discontinued and rebranded as Exire. This script is inspired by "VapeV4ForRoblox," created by 7GrandDadPGN.
 
 ## Interface
 Normal:
