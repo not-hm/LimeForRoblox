@@ -341,14 +341,14 @@ task.defer(function()
 												target_entity_id = TargetEntity.Id,
 												is_crit = LocalPlayer.Character.PrimaryPart.AssemblyLinearVelocity.Y < 0,
 												weapon_name = Sword.Name,
-												extra = {
-													rizz = "Bro.",
-													sigma = "The...",
-													those = workspace.Name == "Ok"
-												}
+                                           		extra = {
+                                                	rizz = 'Bro.',
+                                                	sigma = 'The...',
+                                                	those = workspace.Name == 'Ok'
+                                            	}
 											})
 										end	
-										BridgeDuel.Knit.GetService("ToolService"):AttackPlayerWithSword(Entity, LocalPlayer.Character.PrimaryPart.AssemblyLinearVelocity.Y < 0, Sword.Name, "\226\128\139")
+										--BridgeDuel.Knit.GetService("ToolService"):AttackPlayerWithSword(Entity, LocalPlayer.Character.PrimaryPart.AssemblyLinearVelocity.Y < 0, Sword.Name, "\226\128\139")
 										if CanSwing and (not CanBlock and not LocalEntity.IsBlocking) then
 											BridgeDuel.Knit.GetController("ViewmodelController"):PlayAnimation(Sword.Name)
 										end
