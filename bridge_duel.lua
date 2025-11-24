@@ -300,7 +300,7 @@ task.defer(function()
 				task.spawn(function()
 					repeat
 						if AType == "Blatant" then
-							ADelay = 0.05
+							ADelay = 0.1
 						elseif AType == "Legit" then
 							ADelay = math.random(10, 40) / 100
 						end
@@ -329,30 +329,13 @@ task.defer(function()
 										local TargetEntity = BridgeDuel.Entity.FindByCharacter(Entity)
 										if Library.DeviceType == "Touch" then
 											local AttackButton = LocalPlayer.PlayerGui:WaitForChild("MainGui"):WaitForChild("MobileButtons"):WaitForChild("SwordButtons"):FindFirstChild("Attack")
-											if AttackButton then
-												for _, v in pairs(getconnections(AttackButton.MouseButton1Click)) do 
-													v:Fire()
-													print("!!1")
-												end
-												for _, v in pairs(getconnections(AttackButton.Activated)) do 
-													v:Fire()
-													print("!!2")
-												end
-												AttackButton.ImageRectOffset = Vector2.new(146, 146)
-												AttackButton.ImageLabel.ImageColor3 = Color3.fromRGB(0, 0, 0)
-											    task.wait(0.1)
-												AttackButton.ImageRectOffset = Vector2.new(1, 146)
-												AttackButton.ImageLabel.ImageColor3 = Color3.fromRGB(255, 255, 255)
-											else
-												warn("!")
-											end
-										elseif Library.DeviceType == "Mouse" then
-											Sword:Activate()
-											mouse1click()
-											BridgeDuel.Blink.player_state.update_cps.fire(8)
-											print("!")
+											if not AttackButton then return end
+											AttackButton.ImageRectOffset = Vector2.new(146, 146)
+											AttackButton.ImageLabel.ImageColor3 = Color3.fromRGB(0, 0, 0)
+											task.wait(0.1)
+											AttackButton.ImageRectOffset = Vector2.new(1, 146)
+											AttackButton.ImageLabel.ImageColor3 = Color3.fromRGB(255, 255, 255)
 										end
-										--workspace.CurrentCamera.CFrame = CFrame.lookAt(workspace.CurrentCamera.CFrame.Position, Entity.PrimaryPart.Position)
 										if TargetEntity and TargetEntity.Id then
 											BridgeDuel.Blink.item_action.attack_entity.fire({
 												target_entity_id = TargetEntity.Id,
@@ -366,7 +349,6 @@ task.defer(function()
 											})
 										end	
 										BridgeDuel.Knit.GetService("ToolService"):AttackPlayerWithSword(Entity, LocalPlayer.Character.PrimaryPart.AssemblyLinearVelocity.Y < 0, Sword.Name, "\226\128\139")
-										print("!!!")
 										if CanSwing and (not CanBlock and not LocalEntity.IsBlocking) then
 											BridgeDuel.Knit.GetController("ViewmodelController"):PlayAnimation(Sword.Name)
 										end
@@ -446,7 +428,7 @@ task.defer(function()
 		Name = "Distance",
 		Min = 0,
 		Max = 22,
-		Default = 18,
+		Default = 20,
 		Callback = function(callback)
 			if callback then
 				Distance = callback
@@ -475,7 +457,6 @@ task.defer(function()
 	})
 	local KillAuraSwing = KillAura:CreateMiniToggle({
 		Name = "Swing",
-		Enabled = true,
 		Callback = function(callback)
 			if callback then
 				CanSwing = true
