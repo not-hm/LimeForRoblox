@@ -428,7 +428,7 @@ task.defer(function()
 		Name = "Distance",
 		Min = 0,
 		Max = 22,
-		Default = 20,
+		Default = 18,
 		Callback = function(callback)
 			if callback then
 				Distance = callback
@@ -457,6 +457,7 @@ task.defer(function()
 	})
 	local KillAuraSwing = KillAura:CreateMiniToggle({
 		Name = "Swing",
+		Enabled = true,
 		Callback = function(callback)
 			if callback then
 				CanSwing = true
