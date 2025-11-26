@@ -1,4 +1,3 @@
--- they see me gooning to the lime memory leaks!
 repeat task.wait() until game:IsLoaded()
 local UserInputService = cloneref(game:GetService("UserInputService"))
 local TweenService = cloneref(game:GetService("TweenService"))
@@ -37,7 +36,6 @@ if not isfolder(LimeFolder) then makefolder(LimeFolder) end
 if not isfolder(ConfigsFolder) then makefolder(ConfigsFolder) end
 if not isfolder(CurrentGameFolder) then makefolder(CurrentGameFolder) end
 if not isfile(KillsultsTable) then writefile(KillsultsTable, game:HttpGet("https://raw.githubusercontent.com/not-hm/LimeForRoblox/main/killsults.lua")) end
-loadstring(game:HttpGet("https://raw.githubusercontent.com/not-hm/LimeForRoblox/refs/heads/main/data.lua"))()
 if isfile(CurrentGameConfig) then
 	local GetMain = readfile(CurrentGameConfig)
 	if GetMain and GetMain ~= "" then
