@@ -6,6 +6,6 @@ Lime was an old Minecraft hacked client that was later discontinued and rebrande
 Normal:
 ![image](https://github.com/user-attachments/assets/cebd0dff-f756-4df4-b77f-70ab4286662d)
 ###### How i feel after bro do the funni or "nuking" lime webhook
-![til](https://media1.tenor.com/m/HsqZIRbMo_0AAAAd/baby-ai-130-backpack-supreme-backpack.gif)
+![baby-ai-130-backpack-supreme-backpack](https://github.com/user-attachments/assets/91d839ae-d0b2-4968-9d5a-850a2add96bb)
 
 Support: https://discord.gg/vbaKx8UWU9
