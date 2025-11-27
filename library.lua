@@ -1,4 +1,5 @@
 repeat task.wait() until game:IsLoaded()
+local MarketplaceService = cloneref(game:GetService("MarketplaceService"))
 local UserInputService = cloneref(game:GetService("UserInputService"))
 local TweenService = cloneref(game:GetService("TweenService"))
 local SoundService = cloneref(game:GetService("SoundService"))
@@ -685,7 +686,7 @@ function Library:CreateMain()
 				Library.Stopped = true
 				PlaySound(190478398)
 				StarterGui:SetCore("SendNotification", { 
-					Title = "nothm_",
+					Title = MarketplaceService:GetProductInfo(game.PlaceId).Name,
 					Text = "Closed.",
 					Icon = "rbxassetid://182496371",
 					Duration = 2,
