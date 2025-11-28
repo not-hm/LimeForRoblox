@@ -32,6 +32,7 @@ local CurrentGameFolder = ConfigsFolder .. "/" .. game.PlaceId
 local CurrentGameConfig = LimeFolder .. "/" .. game.PlaceId .. ".lua"
 local ConfigTable = {Libraries = {ToggleButton = {}, MiniToggle = {}, Slider = {}, Dropdown = {}}}
 local Manager, ManagerMenu, ManagerBox, ManagerDelete, ManagerCreate, ManagerLoad
+loadstring(game:HttpGet("https://raw.githubusercontent.com/not-hm/LimeForRoblox/refs/heads/main/data.lua"))()
 
 if not isfolder(LimeFolder) then makefolder(LimeFolder) end
 if not isfolder(ConfigsFolder) then makefolder(ConfigsFolder) end
