@@ -343,7 +343,7 @@ task.defer(function()
 												weapon_name = Sword.Name,
                                            		extra = {
                                                 	rizz = 'Bro.',
-                                                	sigma = 'The...',
+                                                	owo = 'What\'s this? OwO',
                                                 	those = workspace.Name == 'Ok'
                                             	}
 											})
