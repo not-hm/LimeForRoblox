@@ -1552,7 +1552,7 @@ task.defer(function()
 								if not IsAtPosition(PlacePosition) then
 									Block, BlockType = GetBlocks()
 									if Block and BlockType then
-										BridgeDuel.Knit.GetController("BlockPlacementController"):PlaceBlock(PlacePosition, BlockType)
+										BridgeDuel.Knit.GetController("BlockPlacementController"):PlaceBlock(_, PlacePosition, BlockType)
 									end
 								end
 							end
