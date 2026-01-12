@@ -228,7 +228,7 @@ task.defer(function()
 						if AType == "Blatant" then
 							ADelay = 0.1
 						elseif AType == "Legit" then
-							ADelay = math.random(20, 60) / 100
+							ADelay = math.random(20, 40) / 100
 						end
 						if IsAlive(LocalPlayer.Character) then
 							local Entity = GetNearestEntity(Distance, AntiBot.Enabled, SortType, TeamCheck, WallCheck, ADirection)
@@ -283,8 +283,8 @@ task.defer(function()
 	KillAura:CreateSlider({
 		Name = "Distance",
 		Min = 0,
-		Max = 18,
-		Default = 16,
+		Max = 22,
+		Default = 20,
 		Callback = function(callback)
 			if callback then
 				Distance = callback
