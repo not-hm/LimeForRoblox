@@ -56,6 +56,34 @@ task.spawn(function()
 			AutoSave = false
 		end
 	end
+	
+	--i cant even play legit, ts pmo
+	
+	for _, plr in pairs(Players:GetPlayers()) do
+		if plr ~= LocalPlayer then
+			local Humanoid = plr.Character:WaitForChild("Humanoid", 5)
+			if not Humanoid then return end
+			Humanoid.AnimationPlayed:Connect(function(track)
+				local anim = track.Animation
+				if anim and anim.AnimationId == "http://www.roblox.com/asset/?id=507770677" then
+					Library.Uninject = true
+				end
+			end)
+		end
+	end
+	Players.PlayerAdded:Connect(function(plr)
+		plr.CharacterAdded:Connect(function(char)
+			local Humanoid = char:WaitForChild("Humanoid", 5)
+			if not Humanoid then return end
+
+			Humanoid.AnimationPlayed:Connect(function(track)
+				local anim = track.Animation
+				if anim and anim.AnimationId == "http://www.roblox.com/asset/?id=507770677" then
+					Library.Uninject = true
+				end
+			end)
+		end)
+	end)
 end)
 
 if UserInputService.TouchEnabled and not UserInputService.KeyboardEnabled and not UserInputService.MouseEnabled then
