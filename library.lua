@@ -47,24 +47,6 @@ if isfile(CurrentGameConfig) then
 	end
 end
 
-local function GetAnim(char)
-	local Humanoid = char:WaitForChild("Humanoid", 5)
-	if not Humanoid then return end
-
-	Humanoid.AnimationPlayed:Connect(function(track)
-		local anim = track.Animation
-		if anim and (anim.AnimationId == "http://www.roblox.com/asset/?id=507770677" or anim.AnimationId == "rbxassetid://507770677") then
-			Library.Uninject = true
-			StarterGui:SetCore("SendNotification", { 
-				Title = char.Name,
-				Text = ":troll:",
-				Icon = "rbxassetid://12435962893",
-				Duration = 3,
-			})
-		end
-	end)
-end
-
 task.spawn(function()
 	while AutoSave do
 		task.wait(0.5)
@@ -74,36 +56,6 @@ task.spawn(function()
 			AutoSave = false
 		end
 	end
-	
-	--i cant even play legit, ts pmo
-	
-	for _, plr in pairs(Players:GetPlayers()) do
-		if plr.Character then
-			GetAnim(plr.Character)
-		end
-		plr.CharacterAdded:Connect(GetAnim)
-	end
-		
-	Players.PlayerAdded:Connect(function(plr)
-		plr.CharacterAdded:Connect(function(char)
-			local Humanoid = char:WaitForChild("Humanoid", 5)
-			if not Humanoid then return end
-	
-			Humanoid.AnimationPlayed:Connect(function(track)
-			local anim = track.Animation
-				if anim and (anim.AnimationId == "http://www.roblox.com/asset/?id=507770677" or anim.AnimationId == "rbxassetid://507770677") then
-					Library.Uninject = true
-					StarterGui:SetCore("SendNotification", { 
-						Title = plr.Name,
-						Text = ":troll:",
-						Icon = "rbxassetid://12435962893",
-						Duration = 3,
-					})
-				end
-			end)
-		end)
-	end)
-		
 end)
 
 if UserInputService.TouchEnabled and not UserInputService.KeyboardEnabled and not UserInputService.MouseEnabled then
