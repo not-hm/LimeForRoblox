@@ -55,11 +55,10 @@ local function GetAnim(char)
 		local anim = track.Animation
 		if anim and (anim.AnimationId == "http://www.roblox.com/asset/?id=507770677" or anim.AnimationId == "rbxassetid://507770677") then
 			Library.Uninject = true
-			Library.Stopped = true
 			StarterGui:SetCore("SendNotification", { 
 				Title = char.Name,
 				Text = ":troll:",
-				Icon = "rbxassetid://136144096104118",
+				Icon = "rbxassetid://12435962893",
 				Duration = 3,
 			})
 		end
@@ -79,16 +78,13 @@ task.spawn(function()
 	--i cant even play legit, ts pmo
 	
 	for _, plr in pairs(Players:GetPlayers()) do
-		if plr ~= LocalPlayer then
-			if plr.Character then
-				GetAnim(plr.Character)
-			end
-			plr.CharacterAdded:Connect(GetAnim)
+		if plr.Character then
+			GetAnim(plr.Character)
 		end
+		plr.CharacterAdded:Connect(GetAnim)
 	end
 		
 	Players.PlayerAdded:Connect(function(plr)
-		if plr == LocalPlayer then return end
 		plr.CharacterAdded:Connect(function(char)
 			local Humanoid = char:WaitForChild("Humanoid", 5)
 			if not Humanoid then return end
@@ -97,11 +93,10 @@ task.spawn(function()
 			local anim = track.Animation
 				if anim and (anim.AnimationId == "http://www.roblox.com/asset/?id=507770677" or anim.AnimationId == "rbxassetid://507770677") then
 					Library.Uninject = true
-					Library.Stopped = true
 					StarterGui:SetCore("SendNotification", { 
 						Title = plr.Name,
 						Text = ":troll:",
-						Icon = "rbxassetid://136144096104118",
+						Icon = "rbxassetid://12435962893",
 						Duration = 3,
 					})
 				end
