@@ -58,6 +58,11 @@ task.spawn(function()
 	end
 end)
 
+StarterGui:SetCore("SendNotification", { 
+	Title = "Lime",
+	Text = "Discontinued, use it at your own risk",
+	Duration = 3,
+})
 if UserInputService.TouchEnabled and not UserInputService.KeyboardEnabled and not UserInputService.MouseEnabled then
 	if not Library.DeviceType then
 		Library.DeviceType = "Touch"
